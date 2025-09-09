@@ -3,6 +3,8 @@ version: '3.9'
 services:
   nginx:
     build: https://github.com/specify/nginx-with-github-auth.git#main
+    # build:
+      # context: ~/nginx-with-github-auth
     ports:
       - '80:80'
       - '443:443'
@@ -10,8 +12,10 @@ services:
       - './sp7-stats/config/auth.conf:/etc/nginx/auth.conf:ro'
       - './sp7-stats/config/nginx.conf:/etc/nginx/conf.d/default.conf:ro'
       - './sp7-stats/:/var/www/:ro'
-      - './sp7-stats/config/fullchain.pem:/etc/letsencrypt/live/sp7-stats/fullchain.pem:ro'
-      - './sp7-stats/config/privkey.pem:/etc/letsencrypt/live/sp7-stats/privkey.pem:ro'
+      # - './sp7-stats/config/fullchain.pem:/etc/letsencrypt/live/sp7-stats/fullchain.pem:ro'
+      # - './sp7-stats/config/privkey.pem:/etc/letsencrypt/live/sp7-stats/privkey.pem:ro'
+      - '/etc/letsencrypt:/etc/letsencrypt:ro'
+      - './access-logs/:/var/log/nginx/external/:rw'
     networks:
       - nginx
     depends_on:
