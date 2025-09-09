@@ -74,7 +74,8 @@ function compile_institutions($lines_data, $file_name){
 		$institution = $line_data['institution'];
 		$discipline = $line_data['discipline'];
 		$collection = $line_data['collection'];
-		$isa_number = $line_data['isaNumber'];
+		// $isa_number = $line_data['isaNumber'];
+		$isa_number = $line_data['isaNumber'] ?? '';
 		$browser = $line_data['browser'];
 		$domain = $line_data['domain'];
 		$os = $line_data['os'];
