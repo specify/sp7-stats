@@ -12,8 +12,6 @@ services:
       - './sp7-stats/config/auth.conf:/etc/nginx/auth.conf:ro'
       - './sp7-stats/config/nginx.conf:/etc/nginx/conf.d/default.conf:ro'
       - './sp7-stats/:/var/www/:ro'
-      # - './sp7-stats/config/fullchain.pem:/etc/letsencrypt/live/sp7-stats/fullchain.pem:ro'
-      # - './sp7-stats/config/privkey.pem:/etc/letsencrypt/live/sp7-stats/privkey.pem:ro'
       - '/etc/letsencrypt:/etc/letsencrypt:ro'
       - './access-logs/:/var/log/nginx/external/:rw'
     networks:
@@ -35,6 +33,20 @@ services:
       - './sp7-stats/:/var/www/:ro'
       - 'working-dir:/home/specify/working-dir/'
     networks:
+      - nginx
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - '/etc/letsencrypt:/etc/letsencrypt'
+      - './sp7-stats/:/var/www/certbot/'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+    entrypoint: >
+      sh -c "trap exit TERM; while :; do certbot renew --webroot -w /var/www/certbot --deploy-hook 'docker exec sp7-stats-nginx-1 nginx -s reload'; sleep 12h; done"
+    networks:
+      - nginx
+    depends_on:
       - nginx
 
 networks:
