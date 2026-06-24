@@ -1,6 +1,7 @@
 <?php
 
-require_once('../components/header.php');
+//require_once('../components/header.php');
+require_once dirname(__DIR__) . '/components/header.php';
 
 date_default_timezone_set('UTC');
 //date_default_timezone_set('America/Chicago');
@@ -74,19 +75,23 @@ $last_time = FALSE;
 unset($_GET,$_POST,$_FILES,$_SERVER,$_COOKIE);
 
 //prepare to extract data
-require_once('../components/raw_data.php');
+//require_once('../components/raw_data.php');
+require_once dirname(__DIR__) . '/components/raw_data.php';
 
 //prepare to compile institutions
-require_once('../components/institutions.php');
+//require_once('../components/institutions.php');
+require_once dirname(__DIR__) . '/components/institutions.php';
 
 //prepare to fetch information about user agent strings
-require_once('../components/user_agent_strings.php');
+//require_once('../components/user_agent_strings.php');
+require_once dirname(__DIR__) . '/components/user_agent_strings.php';
 
 //unzip all files
 //run extract_data on each file
 //run compile_institutions on each resulting file
 //run get_data_for_user_agent_string and save new strings
-require_once('../components/unzip.php');
+//require_once('../components/unzip.php');
+require_once dirname(__DIR__) . '/components/unzip.php';
 
 
 
